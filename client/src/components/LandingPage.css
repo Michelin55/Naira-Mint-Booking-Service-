@@ -1,0 +1,26 @@
+.custom-background {
+  position: relative;
+  height: 100vh;
+  color: white;
+  text-align: center;
+}
+
+.custom-background .carousel-item {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.custom-background .carousel-caption {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.custom-background .carousel-caption h1, 
+.custom-background .carousel-caption p, 
+.custom-background .carousel-caption .btn {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}

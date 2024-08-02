@@ -1,0 +1,46 @@
+@keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+   .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('../images/justnairas.jpg');
+  }
+  
+  .login-form {
+    margin-bottom: 250px;
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s ease-out forwards;
+    width: 100%;
+  }
+  
+  .login-form h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-form .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .login-form .btn-block {
+    width: 100%;
+  }
+  

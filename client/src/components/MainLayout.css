@@ -1,0 +1,7 @@
+.custom-background {
+    background-image: url('../images//bb.webp'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+  }

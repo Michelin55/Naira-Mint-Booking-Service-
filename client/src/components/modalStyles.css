@@ -1,0 +1,10 @@
+/* modalStyles.css */
+.ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+  }
+  
+  .ReactModal__Content {
+    right: auto;
+    width: 10%;
+  }
+  
