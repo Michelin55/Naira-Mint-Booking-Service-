@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Register from './components//Register';
 import Login from './components/Login';
 import UserList from './components/UserList';
-//import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
 import MainLayout from './components/MainLayout';
 import BookingForm from './components/BookingForm'
 import Transactions from "./components/TransactionReport"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Import custom styles
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -23,7 +22,7 @@ const App = () => {
   // Function to handle logout and set isLoggedIn to false
   const handleLogout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('token'); // Clear token from localStorage or session storage
+    localStorage.removeItem('token'); 
   };
 
   return (

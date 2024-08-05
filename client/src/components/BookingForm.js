@@ -29,7 +29,7 @@ const BookingForm = () => {
     script.src = 'https://js.paystack.co/v1/inline.js';
     script.async = true;
     script.onload = () => {
-      // Ensure PaystackPop is available globally after the script is loaded
+      
       window.PaystackPop = window.PaystackPop || {};
     };
     document.body.appendChild(script);
@@ -73,9 +73,9 @@ const BookingForm = () => {
     sendEmail();
 
     const handler = window.PaystackPop.setup({
-      key: 'pk_test_8c05fc1dd51d2921f9fded4a23aff628161fa7a1', // Replace with your Paystack public key
+      key: 'pk_test_8c05fc1dd51d2921f9fded4a23aff628161fa7a1', 
       email: email,
-      amount: totalAmt * 100, // Paystack amount is in kobo (100 kobo = 1 NGN)
+      amount: totalAmt * 100, 
       metadata: {
         items: selectedProducts.map(item => ({
           name: name,
