@@ -76,8 +76,13 @@ app.post('/verify-payment', async (req, res) => {
   });
 app.get('/users', async (req, res) => {
   try {
+<<<<<<< HEAD
     const users = await User.find(); 
     res.status(200).json(users); 
+=======
+    const users = await User.find();
+    res.status(200).json(users);
+>>>>>>> 98ab3856d6321acba7e0800ad29d67cd26204f43
   } catch (error) {
     res.status(500).send('Error retrieving users');
   }

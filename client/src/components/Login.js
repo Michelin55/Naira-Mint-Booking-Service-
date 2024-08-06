@@ -20,8 +20,8 @@ const Login = ({ onLogin }) => {
       });
       console.log(response.data);
       localStorage.setItem('token', response.data.token);
-      onLogin(); // Notify parent component that login is successful
-      navigate('/bookingForm'); // Navigate to bookingForm after successful login
+      onLogin(); 
+      navigate('/bookingForm'); 
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
