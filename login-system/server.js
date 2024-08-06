@@ -11,11 +11,15 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = 'your_jwt_secret_key';
-
+//const stripe = Stripe('sk_test_51Pawcs2LhakE1036Z2stHyJ94gsHhV2DcXVqmV0FjxY8UrRx4RHcmlT5BkgGFyO4hHq4J07VoudhWiE8mwcAGOYf00996kbOyA'); // Initialize Stripe with your secret key
 
 app.use(cors());
 app.use(express.json());
 
+/*mongoose.connect('mongodb://localhost:27017/login-system', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})*/
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -76,13 +80,8 @@ app.post('/verify-payment', async (req, res) => {
   });
 app.get('/users', async (req, res) => {
   try {
-<<<<<<< HEAD
     const users = await User.find(); 
     res.status(200).json(users); 
-=======
-    const users = await User.find();
-    res.status(200).json(users);
->>>>>>> 98ab3856d6321acba7e0800ad29d67cd26204f43
   } catch (error) {
     res.status(500).send('Error retrieving users');
   }
