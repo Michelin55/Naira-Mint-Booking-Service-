@@ -16,7 +16,7 @@ const JWT_SECRET = 'your_jwt_secret_key';
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/login-system', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
