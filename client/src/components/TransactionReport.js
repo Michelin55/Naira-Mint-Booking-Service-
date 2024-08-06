@@ -50,11 +50,7 @@ const TransactionReport = () => {
     setSelectedItems(items);
     setModalIsOpen(true);
     // Calculate modal height based on number of items
-<<<<<<< HEAD
-    setModalHeight(Math.max(300, items.length * 30)); 
-=======
     setModalHeight(Math.max(300, items.length * 30));
->>>>>>> 98ab3856d6321acba7e0800ad29d67cd26204f43
   };
 
   const closeModal = () => {
