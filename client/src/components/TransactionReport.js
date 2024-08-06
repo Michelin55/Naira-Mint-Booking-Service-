@@ -12,7 +12,7 @@ const TransactionReport = () => {
   const [error, setError] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [modalHeight, setModalHeight] = useState(300); // Initial height of the modal
+  const [modalHeight, setModalHeight] = useState(300); 
 
   useEffect(() => {
     const loadTransactions = async () => {
@@ -50,7 +50,7 @@ const TransactionReport = () => {
     setSelectedItems(items);
     setModalIsOpen(true);
     // Calculate modal height based on number of items
-    setModalHeight(Math.max(300, items.length * 30)); // Adjust as needed based on item height
+    setModalHeight(Math.max(300, items.length * 30));
   };
 
   const closeModal = () => {
@@ -64,7 +64,7 @@ const TransactionReport = () => {
     { label: 'Amount', key: 'amount' },
     { label: 'Date', key: 'created_at' },
     { label: 'Status', key: 'status' },
-    { label: 'Items', key: 'metadata.items' }, // Ensure your metadata contains items
+    { label: 'Items', key: 'metadata.items' }, 
   ];
 
   return (
