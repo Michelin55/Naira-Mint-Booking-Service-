@@ -8,7 +8,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); // State for error message
+  const [error, setError] = useState(null); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,18 +19,18 @@ const Register = () => {
         password,
       });
       console.log(response.data);
-      // Optionally, handle successful registration here
+      
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-        // Server responded with a status code outside of 2xx range
-        setError(error.response.data.message); // Set error message from server response
+       
+        setError(error.response.data.message); 
       } else if (error.request) {
-        // The request was made but no response was received
-        setError('Server is unreachable. Please try again later.'); // Set custom error message for server unreachable
+       
+        setError('Server is unreachable. Please try again later.'); 
       } else {
-        // Something happened in setting up the request that triggered an error
-        setError('An unexpected error occurred. Please try again.'); // Set generic error message
+        
+        setError('An unexpected error occurred. Please try again.');
       }
     }
   };

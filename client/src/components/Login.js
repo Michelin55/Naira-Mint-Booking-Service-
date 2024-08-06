@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); // State for error message
+  const [error, setError] = useState(null); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,8 +31,8 @@ const Login = ({ onLogin }) => {
         // The request was made but no response was received
         setError('Server is unreachable. Please try again later.'); // Set custom error message for server unreachable
       } else {
-        // Something happened in setting up the request that triggered an error
-        setError('An unexpected error occurred. Please try again.'); // Set generic error message
+      
+        setError('An unexpected error occurred. Please try again.'); 
       }
     }
   };
