@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = 'your_jwt_secret_key';
-//const stripe = Stripe('sk_test_51Pawcs2LhakE1036Z2stHyJ94gsHhV2DcXVqmV0FjxY8UrRx4RHcmlT5BkgGFyO4hHq4J07VoudhWiE8mwcAGOYf00996kbOyA'); // Initialize Stripe with your secret key
+
 
 app.use(cors());
 app.use(express.json());
