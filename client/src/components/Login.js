@@ -8,11 +8,12 @@ import { Link } from 'react-router-dom';
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // Clear previous errors
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/login', {
         email,
@@ -25,13 +26,23 @@ const Login = ({ onLogin }) => {
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-       
-        setError(error.response.data.message); 
+        // Error response from the server
+        switch (error.response.status) {
+          case 400:
+            setError('Invalid credentials. Please check your email and password.');
+            break;
+          case 404:
+            setError('User not found. Please check your email.');
+            break;
+          default:
+            setError('An unexpected error occurred. Please try again.');
+        }
       } else if (error.request) {
-       
-        setError('Server is unreachable. Please try again later.'); 
+        // Request was made but no response was received
+        setError('Server is unreachable. Please try again later.');
       } else {
-        setError('An unexpected error occurred. Please try again.'); 
+        // Something happened in setting up the request
+        setError('An unexpected error occurred. Please try again.');
       }
     }
   };
@@ -41,7 +52,7 @@ const Login = ({ onLogin }) => {
       <Row className="justify-content-center">
         <div className="login-form">
           <h2 className="text-center">Login</h2>
-          {error && <Alert variant="danger">{error}</Alert>} {}
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

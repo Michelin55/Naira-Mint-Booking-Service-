@@ -2,34 +2,43 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Form, Button, Alert } from 'react-bootstrap';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null); 
+  const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // Clear previous errors
+    setSuccess(null); // Clear previous success messages
+
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/register', {
         username,
         email,
         password,
       });
-      console.log(response.data);
-      // Optionally, you can redirect or show a success message after successful registration
+      
+      if (response.status === 201) {
+        setSuccess('Account created successfully!');
+        setTimeout(() => navigate('/login'), 2000); // Redirect to login page after 2 seconds
+      }
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-      
-        setError(error.response.data.message); 
+        // Server responded with a status code outside the range of 2xx
+        setError(error.response.data); // Display the specific error message from the server
       } else if (error.request) {
-    
+        // Request was made but no response was received
         setError('Server is unreachable. Please try again later.');
       } else {
-        setError('An unexpected error occurred. Please try again.'); 
+        // Something happened in setting up the request that triggered an Error
+        setError('An unexpected error occurred. Please try again.');
       }
     }
   };
@@ -39,6 +48,7 @@ const Register = () => {
       <Row className="justify-content-center">
         <div className="login-form">
           <h2 className="text-center">Register</h2>
+          {success && <Alert variant="success">{success}</Alert>} {/* Render success message if success exists */}
           {error && <Alert variant="danger">{error}</Alert>} {/* Render error message if error exists */}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">

@@ -3,6 +3,7 @@ import { fetchTransactions } from '../services/api';
 import { CSVLink } from 'react-csv';
 import Modal from 'react-modal';
 import './modalStyles.css';
+import './TransactionReport.css'
 
 const TransactionReport = () => {
   const [transactions, setTransactions] = useState([]);

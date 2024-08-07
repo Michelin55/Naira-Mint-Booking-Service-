@@ -1,7 +1,11 @@
 
 
 body {
-    background-color: #f8f9fa;
+    background-color:white;
+  }
+
+  .card{
+    background: linear-gradient(to right, #a2c2e4, #f0f9ff);
   }
   
   .card-header {
@@ -10,7 +14,6 @@ body {
   }
   
   .card {
-    margin-top: 50px;
     border-radius: 10px;
   }
   

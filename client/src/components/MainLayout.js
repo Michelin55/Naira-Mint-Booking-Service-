@@ -1,7 +1,8 @@
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
- // Import custom styles
+import './MainLayout.css'
+ 
 
 const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
   return (

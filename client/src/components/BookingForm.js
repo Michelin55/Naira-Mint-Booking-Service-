@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import axios from 'axios';
+import './BookingForm.css';
 
 const BookingForm = () => {
   const [name, setName] = useState('');
@@ -53,18 +54,25 @@ const BookingForm = () => {
   };
 
   const handleCheckboxChange = (product) => {
-    const isSelected = selectedProducts.includes(product);
+    const isSelected = selectedProducts.some(p => p.id === product.id);
     let updatedProducts = [];
-
+    let updatedTotal = totalAmt;
+  
     if (isSelected) {
-      updatedProducts = selectedProducts.filter(p => p !== product);
+      // Remove the product from selectedProducts
+      updatedProducts = selectedProducts.filter(p => p.id !== product.id);
+      // Deduct the product's price from the total amount
+      updatedTotal -= product.price;
     } else {
+      // Add the product to selectedProducts
       updatedProducts = [...selectedProducts, product];
+      // Add the product's price to the total amount
+      updatedTotal += product.price;
     }
-
+  
+    // Update the selected products and total amount state
     setSelectedProducts(updatedProducts);
-    const total = updatedProducts.reduce((sum, product) => sum + product.price, 0);
-    setTotalAmt(total);
+    setTotalAmt(updatedTotal);
   };
 
   const handleSubmit = (e) => {
@@ -109,9 +117,9 @@ const BookingForm = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
+    <div className="container">
+      <div className="row">
+        <div className="col-md-12">
           <div className="card">
             <div className="card-header bg-primary text-white">
               <h3>Book Mint for Your Occasion</h3>

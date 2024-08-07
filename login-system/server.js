@@ -1,25 +1,18 @@
 const express = require('express');
-require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
-//const Stripe = require('stripe');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = 'your_jwt_secret_key';
-//const stripe = Stripe('sk_test_51Pawcs2LhakE1036Z2stHyJ94gsHhV2DcXVqmV0FjxY8UrRx4RHcmlT5BkgGFyO4hHq4J07VoudhWiE8mwcAGOYf00996kbOyA'); // Initialize Stripe with your secret key
 
 app.use(cors());
 app.use(express.json());
 
-/*mongoose.connect('mongodb://localhost:27017/login-system', {
-  //useNewUrlParser: true,
-  //useUnifiedTopology: true,
-}) */
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -61,33 +54,49 @@ app.post('/login', async (req, res) => {
     res.status(500).send('Error logging in user');
   }
 });
-app.post('/verify-payment', async (req, res) => {
-    const { reference } = req.body;
-    try {
-      const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
-        headers: {
-          Authorization: `sk_test_971a2e464395cd15963125cb025f9045bcea6340` 
-        }
-      });
-      if (response.data.data.status === 'success') {
-        res.json({ status: 'success', data: response.data.data });
-      } else {
-        res.json({ status: 'error', message: 'Transaction not successful' });
-      }
-    } catch (error) {
-      res.status(500).json({ status: 'error', message: 'An error occurred', error: error.message });
-    }
+
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization')?.split(' ')[1];
+
+  if (!token) return res.status(401).send('Access denied');
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).send('Token expired or invalid');
+    req.user = user;
+    next();
   });
+};
+
+app.get('/protected-route', authenticateToken, (req, res) => {
+  res.send('This is a protected route');
+});
+
+app.post('/verify-payment', async (req, res) => {
+  const { reference } = req.body;
+  try {
+    const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
+      headers: {
+        Authorization: `sk_test_971a2e464395cd15963125cb025f9045bcea6340`
+      }
+    });
+    if (response.data.data.status === 'success') {
+      res.json({ status: 'success', data: response.data.data });
+    } else {
+      res.json({ status: 'error', message: 'Transaction not successful' });
+    }
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: 'An error occurred', error: error.message });
+  }
+});
+
 app.get('/users', async (req, res) => {
   try {
-    const users = await User.find(); 
-    res.status(200).json(users); 
+    const users = await User.find();
+    res.status(200).json(users);
   } catch (error) {
     res.status(500).send('Error retrieving users');
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -19,17 +19,24 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url('../images/justnairas.jpg');
+    flex: 1; /* Takes up half the width of the container */
+    background-image: url('../images/background\ 1.jpeg');
+    background-size: cover; /* Ensures the image covers the entire div */
+    background-repeat: no-repeat;
+    
   }
   
   .login-form {
+    color: black;
+    margin-top: 10px;
     margin-bottom: 250px;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.5); 
     padding: 3rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.5s ease-out forwards;
     width: 100%;
+    font-weight: bold; 
   }
   
   .login-form h2 {

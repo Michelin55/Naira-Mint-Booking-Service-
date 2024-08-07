@@ -1,7 +1,45 @@
 .custom-background {
-    background-image: url('../images//bb.webp'); /* Replace with your image path */
+    background-image: url('../images//bb.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 500px;
   }
+/* MainLayout.css */
+
+/* Navbar Styles */
+.navbar-custom {
+  background: linear-gradient(135deg, #00aaff, #0044ff); /* Gradient background for the navbar */
+  border-bottom: 2px solid #0044ff; /* Bottom border to separate the navbar from the rest of the page */
+}
+
+.navbar-custom .navbar-brand {
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: white;
+  font-weight: 500;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: #d0eaff; /* Light blue color on hover */
+}
+
+/* Main Content Area */
+main {
+  padding: 20px;
+  min-height: 80vh; /* Ensures the content area fills the height of the viewport */
+}
+
+/* Footer Styles */
+.footer-custom {
+  background: #0044ff; /* Blue background for the footer */
+  color: white;
+  border-top: 2px solid #00aaff; /* Top border to separate the footer from the content */
+}
+
+.footer-custom p {
+  margin: 0;
+}
