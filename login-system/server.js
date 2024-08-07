@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-app.post('https://naira-mint-booking-service.onrender.com/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -41,7 +41,7 @@ app.post('https://naira-mint-booking-service.onrender.com/register', async (req,
   }
 });
 
-app.post('https://naira-mint-booking-service.onrender.com/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -78,7 +78,7 @@ app.post('/verify-payment', async (req, res) => {
       res.status(500).json({ status: 'error', message: 'An error occurred', error: error.message });
     }
   });
-app.get('https://naira-mint-booking-service.onrender.com/users', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const users = await User.find(); 
     res.status(200).json(users); 
