@@ -10,14 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null); 
   const [success, setSuccess] = useState(null);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); 
     setSuccess(null); 
-    setLoading(true); // Start loading
+    setLoading(true); 
 
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/register', {
@@ -40,7 +40,7 @@ const Register = () => {
         setError('An unexpected error occurred. Please try again.');
       }
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 

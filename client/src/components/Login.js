@@ -15,7 +15,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setLoading(true); // Start loading
+    setLoading(true); 
 
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/login', {
@@ -45,7 +45,7 @@ const Login = ({ onLogin }) => {
         setError('An unexpected error occurred. Please try again.');
       }
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
