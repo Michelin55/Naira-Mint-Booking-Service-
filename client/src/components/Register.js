@@ -10,12 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null); 
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null); 
     setSuccess(null); 
+    setLoading(true); // Start loading
 
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/register', {
@@ -31,15 +33,14 @@ const Register = () => {
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-        
         setError(error.response.data); 
       } else if (error.request) {
-        
         setError('Server is unreachable. Please try again later.');
       } else {
-       
         setError('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -48,8 +49,8 @@ const Register = () => {
       <Row className="justify-content-center">
         <div className="login-form">
           <h2 className="text-center">Register</h2>
-          {success && <Alert variant="success">{success}</Alert>} {}
-          {error && <Alert variant="danger">{error}</Alert>} {}
+          {success && <Alert variant="success">{success}</Alert>}
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
@@ -86,6 +87,7 @@ const Register = () => {
 
             <Button variant="primary" type="submit" block>
               Register
+              {loading && <div className="loading-spinner"></div>}
             </Button>
           </Form>
           <div className="text-center mt-3">

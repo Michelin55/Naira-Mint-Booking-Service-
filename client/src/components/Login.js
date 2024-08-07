@@ -9,11 +9,14 @@ const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); 
+    setError(null);
+    setLoading(true); // Start loading
+
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/login', {
         email,
@@ -21,12 +24,11 @@ const Login = ({ onLogin }) => {
       });
       console.log(response.data);
       localStorage.setItem('token', response.data.token);
-      onLogin(); 
-      navigate('/bookingForm'); 
+      onLogin();
+      navigate('/bookingForm');
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-    
         switch (error.response.status) {
           case 400:
             setError('Invalid credentials. Please check your email and password.');
@@ -38,12 +40,12 @@ const Login = ({ onLogin }) => {
             setError('An unexpected error occurred. Please try again.');
         }
       } else if (error.request) {
-        
         setError('Server is unreachable. Please try again later.');
       } else {
-        
         setError('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -78,6 +80,7 @@ const Login = ({ onLogin }) => {
 
             <Button variant="primary" type="submit" block>
               Login
+              {loading && <div className="loading-spinner"></div>}
             </Button>
           </Form>
           <div className="text-center mt-3">

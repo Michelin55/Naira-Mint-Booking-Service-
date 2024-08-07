@@ -37,7 +37,7 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
 
       <footer className="footer-custom text-center py-3 mt-5">
         <Container>
-          <p>&copy; 2024 Currency Mint. All rights reserved.</p>
+          <p>&copy; 2024 Currency Mint @Michelin. All rights reserved.</p>
         </Container>
       </footer>
     </div>
