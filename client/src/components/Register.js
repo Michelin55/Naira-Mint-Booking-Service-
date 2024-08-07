@@ -14,8 +14,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
-    setSuccess(null); // Clear previous success messages
+    setError(null); 
+    setSuccess(null); 
 
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/register', {
@@ -26,18 +26,18 @@ const Register = () => {
       
       if (response.status === 201) {
         setSuccess('Account created successfully!');
-        setTimeout(() => navigate('/login'), 2000); // Redirect to login page after 2 seconds
+        setTimeout(() => navigate('/login'), 2000); 
       }
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-        // Server responded with a status code outside the range of 2xx
-        setError(error.response.data); // Display the specific error message from the server
+        
+        setError(error.response.data); 
       } else if (error.request) {
-        // Request was made but no response was received
+        
         setError('Server is unreachable. Please try again later.');
       } else {
-        // Something happened in setting up the request that triggered an Error
+       
         setError('An unexpected error occurred. Please try again.');
       }
     }
@@ -48,8 +48,8 @@ const Register = () => {
       <Row className="justify-content-center">
         <div className="login-form">
           <h2 className="text-center">Register</h2>
-          {success && <Alert variant="success">{success}</Alert>} {/* Render success message if success exists */}
-          {error && <Alert variant="danger">{error}</Alert>} {/* Render error message if error exists */}
+          {success && <Alert variant="success">{success}</Alert>} {}
+          {error && <Alert variant="danger">{error}</Alert>} {}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>

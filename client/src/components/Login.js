@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null); 
     try {
       const response = await axios.post('https://naira-mint-booking-service.onrender.com/login', {
         email,
@@ -26,7 +26,7 @@ const Login = ({ onLogin }) => {
     } catch (error) {
       console.error('Error:', error);
       if (error.response) {
-        // Error response from the server
+    
         switch (error.response.status) {
           case 400:
             setError('Invalid credentials. Please check your email and password.');
@@ -38,10 +38,10 @@ const Login = ({ onLogin }) => {
             setError('An unexpected error occurred. Please try again.');
         }
       } else if (error.request) {
-        // Request was made but no response was received
+        
         setError('Server is unreachable. Please try again later.');
       } else {
-        // Something happened in setting up the request
+        
         setError('An unexpected error occurred. Please try again.');
       }
     }
