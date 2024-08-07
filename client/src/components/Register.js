@@ -12,7 +12,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://naira-mint-booking-service.onrender.com//register', {
+      const response = await axios.post('https://naira-mint-booking-service.onrender.com/register', {
         username,
         email,
         password,
