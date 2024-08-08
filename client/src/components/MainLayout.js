@@ -34,7 +34,8 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
               handleLogout(); // No refresh token, log out
             }
           } else {
-            handleLogout(); // Other errors, log out
+            // Handle other errors here
+            console.error('An error occurred while verifying the token:', error.message);
           }
         }
       };
