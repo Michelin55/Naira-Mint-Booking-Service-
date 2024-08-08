@@ -12,7 +12,6 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
         try {
           const token = localStorage.getItem('token');
           if (token) {
-            // Send a request to the server to verify the token
             await axios.get('/protected-route', {
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -20,8 +19,24 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
             });
           }
         } catch (error) {
-          // If the token is invalid or expired, log the user out
-          handleLogout();
+          if (error.response && error.response.status === 403) {
+            // Token expired, try to refresh it
+            const refreshToken = localStorage.getItem('refreshToken');
+            if (refreshToken) {
+              try {
+                const response = await axios.post('/refresh-token', { refreshToken });
+                const { token: newToken, refreshToken: newRefreshToken } = response.data;
+                localStorage.setItem('token', newToken);
+                localStorage.setItem('refreshToken', newRefreshToken);
+              } catch (refreshError) {
+                handleLogout(); // Refresh token also invalid, log out
+              }
+            } else {
+              handleLogout(); // No refresh token, log out
+            }
+          } else {
+            handleLogout(); // Other errors, log out
+          }
         }
       };
 
@@ -29,7 +44,6 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
       verifyToken();
       const intervalId = setInterval(verifyToken, 5000);
 
-      // Clear the interval when the component is unmounted
       return () => clearInterval(intervalId);
     }
   }, [isLoggedIn, handleLogout]);
