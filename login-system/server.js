@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Generate Access and Refresh Tokens
 const generateAccessToken = (user) => {
-  return jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '60s' });
+  return jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1m' });
 };
 
 const generateRefreshToken = (user) => {

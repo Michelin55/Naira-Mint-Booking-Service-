@@ -25,9 +25,8 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
             if (refreshToken) {
               try {
                 const response = await axios.post('/refresh-token', { refreshToken });
-                const { token: newToken, refreshToken: newRefreshToken } = response.data;
+                const { token: newToken } = response.data;
                 localStorage.setItem('token', newToken);
-                localStorage.setItem('refreshToken', newRefreshToken);
               } catch (refreshError) {
                 handleLogout(); // Refresh token also invalid, log out
               }
@@ -40,9 +39,9 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
         }
       };
 
-      // Verify the token immediately and then every 5 seconds
+      // Verify the token immediately and then every 10 seconds
       verifyToken();
-      const intervalId = setInterval(verifyToken, 5000);
+      const intervalId = setInterval(verifyToken, 10000);
 
       return () => clearInterval(intervalId);
     }
