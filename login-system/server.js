@@ -48,7 +48,7 @@ app.post('/login', async (req, res) => {
       return res.status(400).send('Invalid credentials');
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '15s' });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '60s' });
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).send('Error logging in user');

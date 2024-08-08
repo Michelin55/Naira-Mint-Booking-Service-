@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import './MainLayout.css'
- 
+import axios from 'axios';
+import './MainLayout.css';
 
 const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const verifyToken = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          if (token) {
+            // Send a request to the server to verify the token
+            await axios.get('/protected-route', {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            });
+          }
+        } catch (error) {
+          // If the token is invalid or expired, log the user out
+          handleLogout();
+        }
+      };
+
+      // Verify the token immediately and then every 5 seconds
+      verifyToken();
+      const intervalId = setInterval(verifyToken, 5000);
+
+      // Clear the interval when the component is unmounted
+      return () => clearInterval(intervalId);
+    }
+  }, [isLoggedIn, handleLogout]);
+
   return (
     <div>
       <Navbar className="navbar-custom" expand="lg">
