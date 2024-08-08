@@ -12,7 +12,7 @@ const MainLayout = ({ isLoggedIn, handleLogout, children }) => {
         try {
           const token = localStorage.getItem('token');
           if (token) {
-            await axios.get('/protected-route', {
+            await axios.get('https://naira-mint-booking-service.onrender.com/protected-route', {
               headers: {
                 'Authorization': `Bearer ${token}`
               }
