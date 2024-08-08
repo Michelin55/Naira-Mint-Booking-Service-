@@ -98,6 +98,18 @@ app.get('/users', async (req, res) => {
   }
 });
 
+
+app.get('/user-transactions', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming the user ID is stored in the JWT payload
+    const transactions = await Transaction.find({ userId });
+    res.json(transactions);
+  } catch (error) {
+    res.status(500).send('Error fetching transactions');
+  }
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

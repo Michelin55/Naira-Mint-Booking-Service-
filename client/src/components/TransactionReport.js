@@ -3,7 +3,7 @@ import { fetchTransactions } from '../services/api';
 import { CSVLink } from 'react-csv';
 import Modal from 'react-modal';
 import './modalStyles.css';
-import './TransactionReport.css'
+import './TransactionReport.css';
 
 const TransactionReport = () => {
   const [transactions, setTransactions] = useState([]);
@@ -17,8 +17,15 @@ const TransactionReport = () => {
 
   useEffect(() => {
     const loadTransactions = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('User not authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const data = await fetchTransactions();
+        const data = await fetchTransactions(token);
         setTransactions(data);
         setFilteredTransactions(data);
       } catch (error) {
@@ -50,7 +57,6 @@ const TransactionReport = () => {
   const openModal = (items) => {
     setSelectedItems(items);
     setModalIsOpen(true);
-    // Calculate modal height based on number of items
     setModalHeight(Math.max(300, items.length * 30));
   };
 

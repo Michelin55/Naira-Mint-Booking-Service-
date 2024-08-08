@@ -117,7 +117,9 @@ const BookingForm = () => {
   };
 
   return (
+    <div className="myb">
     <div className="container">
+      
       <div className="row">
         <div className="col-md-12">
           <div className="card">
@@ -213,6 +215,7 @@ const BookingForm = () => {
               </form>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
